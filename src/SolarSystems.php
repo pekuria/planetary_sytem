@@ -4,6 +4,6 @@ namespace SolarSystem;
 
 interface SolarSystems
 {
-    public function add(SolarSystem $solarSystem);
-    public function find(Identity $solarSystemId): SolarSystem;
+    public function add(Planet $planet): SolarSystem;
+    public function find(string $planetName);
 }
