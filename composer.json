@@ -1,7 +1,13 @@
 {
+  "name": "Solar System",
+  "type": "project",
+  "description": "The Solar System.",
+  "version": "1.0.0",
+  "keywords": [
+    "Solar System"
+  ],
     "require": {
-        "phpunit/phpunit": "^7.5",
-        "ramsey/uuid": "^3.8"
+        "phpunit/phpunit": "^7.5"
     },
     "autoload": {
     	"psr-4": {

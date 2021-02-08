@@ -9,10 +9,6 @@ require_once "Planet.php";
 use SolarSystem\SolarSystem;
 use SolarSystem\Planet;
 
-$error_message = 'Only positive number allowed please try again';
-$solarSystem = new SolarSystem('Solar');
-$solarSystem->initializeSolarSystem();
-
 function validateInput($error_message )
 {
     $value =  strtolower(trim(fgets(STDIN)));
@@ -23,6 +19,32 @@ function validateInput($error_message )
     return $value;
 }
 
+function initializeSolarSystem(SolarSystem $solarSystem): SolarSystem
+{
+    $mercury = new Planet('Mercury', 0.055, 0.4);
+    $venus = new Planet('Venus', 0.815, 0.7);
+    $earth = new Planet('Earth', 1, 1);
+    $mars = new Planet('Mars', 0.107, 1.5);
+    $jupiter = new Planet('Jupiter', 318, 5.2);
+    $saturn = new Planet('Saturn', 95, 9.5);
+    $uranus = new Planet('Uranus', 14, 19.2);
+    $neptune = new Planet('Neptune', 17, 30.1);
+
+    $solarSystem->add($mercury);
+    $solarSystem->add($venus);
+    $solarSystem->add($earth);
+    $solarSystem->add($mars);
+    $solarSystem->add($jupiter);
+    $solarSystem->add($saturn);
+    $solarSystem->add($uranus);
+    $solarSystem->add($neptune);
+    return $solarSystem;
+}
+
+$error_message = "\033[33m Only positive number allowed please try again \033[39m";
+$solarSystem = new SolarSystem('Solar');
+initializeSolarSystem($solarSystem);
+
 
 echo "\n Welcome to the planet discover channel\n";
 while (1) {
@@ -31,7 +53,7 @@ while (1) {
     $response = strtolower(trim(fgets(STDIN)));
     switch ($response) {
         case 0:
-            echo "\n", "Hope you had fun, Goodbye", "\n";
+            echo "\n", "\033[33m Hope you had fun, Goodbye \033[39m", "\n";
             exit();
         case 1:
             echo "\n", 'Hey what action would you like to perform
@@ -59,7 +81,7 @@ while (1) {
             $planetName = strtolower(trim(fgets(STDIN)));
 
             if ($solarSystem->find($planetName) instanceof Planet) {
-                echo 'This Planet already exists';
+                echo "\033[33m This Planet already exists \033[39m";
                 break;
             }
 
@@ -81,13 +103,13 @@ while (1) {
                 $solarSystem->getDistance() . " AU. \n";
             break;
         case 5:
-            echo "The mass of the solar system is . {$solarSystem->getMass()} earth masses";
+            echo "The mass of the solar system is \033[32m {$solarSystem->getMass()} \033[39m earth masses";
             break;
         case 6:
-            echo "The diameter of our solar system is . {$solarSystem->getDistance()} AU";
+            echo "The diameter of our solar system is \033[32m {$solarSystem->getDistance()} \033[39m AU";
             break;
         default:
-            echo "\n", "That option does not exit, please try again", "\n";
+            echo "\n", " \033[33m That option does not exit, please try again \033[39m", " \n";
     }
 }
 

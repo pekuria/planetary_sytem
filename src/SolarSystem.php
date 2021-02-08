@@ -4,22 +4,33 @@ namespace SolarSystem;
 
 class SolarSystem implements SolarSystems
 {
-    public const MASS = 333030; //Earth Mass
+    private const MASS = 333030; //Earth Mass
     private const AU = 149598000;  //kilometres
-    private string $name;
-    private array $planets;
-    private float $totalMass = 0;
+    private $name;
+    private $planets;
+    private $totalMass = 0;
 
+    /**
+     * SolarSystem constructor.
+     * @param $name
+     */
     public function __construct($name)
     {
         $this->name = $name;
     }
 
+    /**
+     * @return string
+     */
     public function getId(): string
     {
         return hash('sha256', $this->name);
     }
 
+    /**
+     * @param string $name
+     * @return $this
+     */
     public function remove(string $name): SolarSystem
     {
         if (array_key_exists($name, $this->planets)) {
@@ -28,6 +39,9 @@ class SolarSystem implements SolarSystems
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getDistanceInKilometres(): string
     {
         return $this->getDistance() * self::AU . ' kilometres';
@@ -46,9 +60,9 @@ class SolarSystem implements SolarSystems
     }
 
     /**
-     * @return string
+     * @return float
      */
-    public function getMass(): string
+    public function getMass(): float
     {
         return self::MASS + $this->totalMass;
     }
@@ -59,28 +73,6 @@ class SolarSystem implements SolarSystems
     public function getNoPlanets(): int
     {
         return count($this->planets);
-    }
-
-    public function initializeSolarSystem(): SolarSystem
-    {
-        $mercury = new Planet('Mercury', 0.055, 0.4);
-        $venus = new Planet('Venus', 0.815, 0.7);
-        $earth = new Planet('Earth', 1, 1);
-        $mars = new Planet('Mars', 0.107, 1.5);
-        $jupiter = new Planet('Jupiter', 318, 5.2);
-        $saturn = new Planet('Saturn', 95, 9.5);
-        $uranus = new Planet('Uranus', 14, 19.2);
-        $neptune = new Planet('Neptune', 17, 30.1);
-
-        $this->add($mercury);
-        $this->add($venus);
-        $this->add($earth);
-        $this->add($mars);
-        $this->add($jupiter);
-        $this->add($saturn);
-        $this->add($uranus);
-        $this->add($neptune);
-        return $this;
     }
 
     /**
@@ -111,7 +103,11 @@ class SolarSystem implements SolarSystems
         return 'This planet does not exist';
     }
 
-    public function addMassOfNewPlanet(Planet $planet)
+    /**
+     * @param Planet $planet
+     * @return float
+     */
+    public function addMassOfNewPlanet(Planet $planet): float
     {
         $this->totalMass += $planet->getMass();
         return $this->totalMass;

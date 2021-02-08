@@ -6,10 +6,16 @@ use InvalidArgumentException;
 
 class Planet
 {
-    private string $name;
-    private float $mass;
-    private float $distanceFromSun;
+    private $name;
+    private $mass;
+    private $distanceFromSun;
 
+    /**
+     * Planet constructor.
+     * @param string $name
+     * @param float $mass
+     * @param float $distanceFromSun
+     */
     public function __construct(string $name, float $mass, float $distanceFromSun)
     {
         $this->name = strtolower($name);
@@ -32,6 +38,9 @@ class Planet
         $this->distanceFromSun = $distance;
     }
 
+    /**
+     * @return float
+     */
     public function getMass(): float
     {
         return $this->mass;
@@ -52,13 +61,17 @@ class Planet
         $this->mass = $mass;
     }
 
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     public function getDistanceFromSun()
     {
         return $this->distanceFromSun;
     }
 
-    public function __toString(): string
-    {
-        return $this->name;
-    }
 }
