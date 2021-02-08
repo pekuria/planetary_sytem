@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class SolarSystemTest extends TestCase
 {
-    private $solarSystem;
+    private SolarSystem $solarSystem;
 
     public function setup(): void
     {
@@ -32,10 +32,10 @@ class SolarSystemTest extends TestCase
 
     public function findPlanetDataProvider(): array
     {
-        $earth = new Planet('Earth', 1, 1);
+        $earth = new Planet('earth', 1, 1);
         return [
-            ['Earth', $earth],
-            ['PlanetX', 'This planet does not exist']
+            "Planet found" =>['earth', $earth],
+            "Planet not found" => ['PlanetX', 'This planet does not exist']
         ];
     }
 
@@ -44,25 +44,25 @@ class SolarSystemTest extends TestCase
      * @param string $planetName
      * @param mixed Planet|string $expectedOutcome
      */
-    public function testThatFindReturnsAnExisting(string $planetName, $expectedOutcome): void
+    public function testThatFindReturnsAnExistingPlanetOrPlanetDoesNotExist(string $planetName, $expectedOutcome): void
     {
-        $this->assertEquals($expectedOutcome, $this->solarSystem->find($planetName));
+        self::assertEquals($expectedOutcome, $this->solarSystem->find($planetName));
     }
 
-//    public function testThatAddingPlanetIncreasePlanetCount() : void
-//    {
-//        $planetX = new Planet('PlanetX', 1, 1);
-//        $existingNoPlanets = $this->solarSystem->getNoPlanets();
-//        $this->solarSystem->add($planetX);
-//        $this->assertEquals($existingNoPlanets +1, $this->solarSystem->getNoPlanets());
-//    }
+    public function testThatAddingPlanetIncreasePlanetCount() : void
+    {
+        $planetX = new Planet('PlanetX', 1, 1);
+        $existingNoPlanets = $this->solarSystem->getNoPlanets();
+        $this->solarSystem->add($planetX);
+        self::assertEquals($existingNoPlanets +1, $this->solarSystem->getNoPlanets());
+    }
 
     public function testThatNewPlanetsMassIsAddedToTotalMassOfSolarSystem() : void
     {
         $existingTotalMass = (int)$this->solarSystem->getMass();
         $planetX = new Planet('PlanetX', 10, 10);
         $this->solarSystem->add($planetX);
-        $this->assertEquals($existingTotalMass + 10, (int)$this->solarSystem->getMass());
+        self::assertEquals($existingTotalMass + 10, (int)$this->solarSystem->getMass());
     }
 
 }
